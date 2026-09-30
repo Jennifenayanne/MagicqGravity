@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Rocha Chueiri - A Competição Anual</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #0f0d13;
+            color: #e0d8f0;
+            font-family: 'Georgia', serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .game-container {
+            width: 100%;
+            max-width: 800px;
+            background: linear-gradient(145deg, #181524, #231e34);
+            border: 2px solid #7c5295;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(124, 82, 149, 0.4);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 2px solid #4a335c;
+            padding-bottom: 15px;
+        }
+
+        h1 {
+            color: #d4af37;
+            font-size: 2rem;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+
+        .subtitle {
+            font-style: italic;
+            color: #a393bf;
+            font-size: 0.95rem;
+            margin-top: 5px;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: space-around;
+            background-color: #120e1a;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #382a47;
+            font-size: 0.9rem;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .stat-item {
+            color: #e0d8f0;
+        }
+
+        .stat-value {
+            color: #d4af37;
+            font-weight: bold;
+        }
+
+        .story-box {
+            background-color: #120e1a;
+            border: 1px solid #382a47;
+            border-radius: 6px;
+            padding: 20px;
+            min-height: 180px;
+            line-height: 1.6;
+            font-size: 1.05rem;
+            color: #f0eaf7;
+        }
+
+        .choices-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn-choice {
+            background: linear-gradient(180deg, #3a254c, #261733);
+            color: #e0d8f0;
+            border: 1px solid #7c5295;
+            padding: 14px 20px;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: inherit;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s ease;
+        }
+
+        .btn-choice:hover {
+            background: linear-gradient(180deg, #53346d, #3a254c);
+            border-color: #d4af37;
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        .btn-choice:active {
+            transform: translateY(0);
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #6a5a80;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="game-container">
+        <header>
+            <h1>A ROCHA CHUEIRI</h1>
+            <p class="subtitle">Escola Mágica Ancestral das Montanhas Nebulosas</p>
+        </header>
+
+        <div class="stats-bar" id="stats-bar" style="display: none;">
+            <div class="stat-item">Aluno: <span class="stat-value" id="stat-name">-</span></div>
+            <div class="stat-item">Raça: <span class="stat-value" id="stat-race">-</span></div>
+            <div class="stat-item">Companheiro: <span class="stat-value" id="stat-pet">-</span></div>
+            <div class="stat-item">Pontos de Equipe: <span class="stat-value" id="stat-points">0</span></div>
+        </div>
+
+        <div class="story-box" id="story-text">
+            O nevoeiro das Montanhas Nebulosas se dissipa, revelando a imponente fortaleza de pedra da Rocha Chueiri. Os grandes portões estão abertos para o início da Competição Anual. O Arquimago aguarda no Grande Salão.
+            <br><br>
+            Antes de se juntar à sua equipe, você precisa se registrar no livro de convocação.
+        </div>
+
+        <div class="choices-container" id="choices-box">
+            <!-- As opções serão inseridas via JavaScript -->
+        </div>
+
+        <footer>
+            Rocha Chueiri RPG &bull; Pressione as opções para progredir no torneio
+        </footer>
+    </div>
+
+    <script>
+        // Estado do Jogador
+        const player = {
+            name: "Estudante",
+            race: "",
+            pet: "",
+            points: 0
+        };
+
+        // Elementos do DOM
+        const storyTextEl = document.getElementById('story-text');
+        const choicesBoxEl = document.getElementById('choices-box');
+        const statsBarEl = document.getElementById('stats-bar');
+        const statNameEl = document.getElementById('stat-name');
+        const statRaceEl = document.getElementById('stat-race');
+        const statPetEl = document.getElementById('stat-pet');
+        const statPointsEl = document.getElementById('stat-points');
+
+        // Atualiza a barra de atributos
+        function updateStats() {
+            statNameEl.textContent = player.name;
+            statRaceEl.textContent = player.race || "-";
+            statPetEl.textContent = player.pet || "-";
+            statPointsEl.textContent = player.points;
+        }
+
+        // Exibe uma cena do jogo
+        function showScene(scene) {
+            storyTextEl.innerHTML = scene.text;
+            choicesBoxEl.innerHTML = '';
+
+            scene.options.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'btn-choice';
+                button.textContent = option.text;
+                button.onclick = () => option.select();
+                choicesBoxEl.appendChild(button);
+            });
+
+            updateStats();
+        }
+
+        // --- CENAS DO JOGO ---
+
+        const scenes = {
+            start: {
+                text: "Bem-vindo à Rocha Chueiri. Qual é a sua linhagem ancestral?",
+                options: [
+                    {
+                        text: "Elfo Místico (Afinidade com magias antigas e fênixes)",
+                        select: () => {
+                            player.race = "Elfo";
+                            choosePetScene();
+                        }
+                    },
+                    {
+                        text: "Anão das Runas (Resistente e mestre em encantamentos)",
+                        select: () => {
+                            player.race = "Anão";
+                            choosePetScene();
+                        }
+                    },
+                    {
+                        text: "Humano Elemental (Versátil e adaptável a qualquer desafio)",
+                        select: () => {
+                            player.race = "Humano";
+                            choosePetScene();
+                        }
+                    }
+                ]
+            }
+        };
+
+        function choosePetScene() {
+            statsBarEl.style.display = 'flex';
+            showScene({
+                text: `Sendo um ${player.race}, você se dirige aos pátios de adestramento da Rocha Chueiri para invocar seu companheiro mágico para a Competição Anual. Quem responderá ao seu chamado?`,
+                options: [
+                    {
+                        text: "Um Grifo Imponente (Agilidade e visão aguçada)",
+                        select: () => {
+                            player.pet = "Grifo";
+                            firstTaskScene();
+                        }
+                    },
+                    {
+                        text: "Uma Fênix Renascida (Chamas curativas e sabedoria)",
+                        select: () => {
+                            player.pet = "Fênix";
+                            firstTaskScene();
+                        }
+                    },
+                    {
+                        text: "Um Dragão Esmeralda (Força bruta e baforada de fogo)",
+                        select: () => {
+                            player.pet = "Dragão";
+                            firstTaskScene();
+                        }
+                    }
+                ]
+            });
+        }
+
+        function firstTaskScene() {
+            showScene({
+                text: `O Arquimago assume o pódio no salão central e ecoa sua voz: <i>"Que comece a Competição Anual! A primeira prova testará a união entre aluno e criatura na Ravina dos Ecos."</i><br><br>
+                Sua equipe avança pela ravina e encontra uma névoa sombria criada por uma equipe rival para atrasá-los. Um segredo parece estar oculto ali. O que você faz?`,
+                options: [
+                    {
+                        text: `Usar a habilidade especial do seu ${player.pet} para dissipar a névoa.`,
+                        select: () => {
+                            player.points += 20;
+                            secretDiscoveryScene(true);
+                        }
+                    },
+                    {
+                        text: "Lançar um feitiço de rastreamento com sua equipe para contornar o perigo.",
+                        select: () => {
+                            player.points += 10;
+                            secretDiscoveryScene(false);
+                        }
+                    },
+                    {
+                        text: "Confrontar a equipe rival diretamente antes de continuar.",
+                        select: () => {
+                            player.points += 5;
+                            secretDiscoveryScene(false);
+                        }
+                    }
+                ]
+            });
+        }
+
+        function secretDiscoveryScene(foundSecret) {
+            let extraText = foundSecret 
+                ? `Graças ao seu <b>${player.pet}</b>, você não só limpa o caminho como também revela um talismã ancestral escondido nas rochas, deixado pelos fundadores da escola!`
+                : "Vocês conseguem avançar pela névoa, mas a rivalidade entre as turmas fica cada vez mais acirrada.";
+
+            showScene({
+                text: `${extraText}<br><br>Chegou a hora do desafio final na Arena do Voo. O Troféu da Rocha Chueiri está visível no topo da torre central, mas o time rival conjura uma barreira mágica final.`,
+                options: [
+                    {
+                        text: "Combinar sua magia elemental com o poder do seu companheiro para quebrar a barreira.",
+                        select: () => {
+                            player.points += 30;
+                            finalResultScene();
+                        }
+                    },
+                    {
+                        text: "Confiar totalmente no trabalho em equipe dos seus colegas para criar um escudo e capturar o troféu.",
+                        select: () => {
+                            player.points += 25;
+                            finalResultScene();
+                        }
+                    }
+                ]
+            });
+        }
+
+        function finalResultScene() {
+            let victoryText = "";
+            if (player.points >= 40) {
+                victoryText = `Com <b>${player.points} pontos</b>, sua equipe alcançou a vitória máxima! O Arquimago entrega o Troféu da Rocha Chueiri à sua família, e seu nome será gravado na história da escola ancestral.`;
+            } else {
+                victoryText = `Com <b>${player.points} pontos</b>, sua equipe lutou bravamente e conquistou o segundo lugar. A rivalidade continua, mas seus laços com seu ${player.pet} tornaram-se inquebráveis.`;
+            }
+
+            showScene({
+                text: `<b>A Competição Anual Chegou ao Fim!</b><br><br>${victoryText}`,
+                options: [
+                    {
+                        text: "Jogar Novamente",
+                        select: () => {
+                            player.points = 0;
+                            player.race = "";
+                            player.pet = "";
+                            statsBarEl.style.display = 'none';
+                            showScene(scenes.start);
+                        }
+                    }
+                ]
+            });
+        }
+
+        // Iniciar o jogo
+        showScene(scenes.start);
+    </script>
+</body>
+</html>

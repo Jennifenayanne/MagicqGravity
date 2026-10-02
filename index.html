@@ -3,345 +3,634 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Rocha Chueiri - A Competição Anual</title>
+
+    <title>A Rocha Chueiri - Projeto</title>
+
     <style>
-- {
+        * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
 
         body {
-            background-color: #0f0d13;
+            background: #0f0d13;
             color: #e0d8f0;
-            font-family: 'Georgia', serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .game-container {
-            width: 100%;
-            max-width: 800px;
-            background: linear-gradient(145deg, #181524, #231e34);
-            border: 2px solid #7c5295;
-            border-radius: 12px;
-            box-shadow: 0 0 20px rgba(124, 82, 149, 0.4);
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+            font-family: Georgia, serif;
+            line-height: 1.7;
         }
 
         header {
+            background: linear-gradient(135deg, #181524, #302044);
             text-align: center;
-            border-bottom: 2px solid #4a335c;
-            padding-bottom: 15px;
+            padding: 70px 20px;
+            border-bottom: 3px solid #d4af37;
         }
 
-        h1 {
+        header h1 {
             color: #d4af37;
-            font-size: 2rem;
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+            font-size: 3rem;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
         }
 
-        .subtitle {
+        header p {
+            color: #b9a9d0;
+            font-size: 1.1rem;
             font-style: italic;
-            color: #a393bf;
-            font-size: 0.95rem;
-            margin-top: 5px;
         }
 
-        .stats-bar {
-            display: flex;
-            justify-content: space-around;
-            background-color: #120e1a;
-            padding: 12px;
-            border-radius: 6px;
-            border: 1px solid #382a47;
-            font-size: 0.9rem;
-            flex-wrap: wrap;
-            gap: 10px;
+        nav {
+            background: #120e1a;
+            padding: 15px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            border-bottom: 1px solid #382a47;
         }
 
-        .stat-item {
+        nav a {
             color: #e0d8f0;
-        }
-
-        .stat-value {
-            color: #d4af37;
+            text-decoration: none;
+            margin: 0 15px;
             font-weight: bold;
         }
 
-        .story-box {
-            background-color: #120e1a;
+        nav a:hover {
+            color: #d4af37;
+        }
+
+        main {
+            width: 90%;
+            max-width: 1000px;
+            margin: 40px auto;
+        }
+
+        section {
+            background: linear-gradient(145deg, #181524, #231e34);
+            border: 1px solid #4a335c;
+            border-radius: 12px;
+            padding: 35px;
+            margin-bottom: 30px;
+            box-shadow: 0 0 20px rgba(124, 82, 149, 0.15);
+        }
+
+        h2 {
+            color: #d4af37;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #4a335c;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: #c8a8df;
+            margin-top: 20px;
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        ul {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: #120e1a;
             border: 1px solid #382a47;
-            border-radius: 6px;
-            padding: 20px;
-            min-height: 180px;
-            line-height: 1.6;
-            font-size: 1.05rem;
-            color: #f0eaf7;
+            border-radius: 10px;
+            padding: 25px;
+            transition: 0.3s;
         }
 
-        .choices-container {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .btn-choice {
-            background: linear-gradient(180deg, #3a254c, #261733);
-            color: #e0d8f0;
-            border: 1px solid #7c5295;
-            padding: 14px 20px;
-            border-radius: 6px;
-            font-size: 1rem;
-            font-family: inherit;
-            cursor: pointer;
-            text-align: left;
-            transition: all 0.2s ease;
-        }
-
-        .btn-choice:hover {
-            background: linear-gradient(180deg, #53346d, #3a254c);
+        .card:hover {
+            transform: translateY(-5px);
             border-color: #d4af37;
-            color: #ffffff;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
         }
 
-        .btn-choice:active {
-            transform: translateY(0);
+        .card h3 {
+            color: #d4af37;
+            margin-top: 0;
+        }
+
+        .timeline {
+            border-left: 3px solid #7c5295;
+            padding-left: 25px;
+        }
+
+        .step {
+            margin-bottom: 25px;
+        }
+
+        .step strong {
+            color: #d4af37;
+            font-size: 1.1rem;
+        }
+
+        .highlight {
+            background: #120e1a;
+            border-left: 4px solid #d4af37;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+
+        .points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .point-box {
+            text-align: center;
+            background: #120e1a;
+            border: 1px solid #382a47;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .point-box .number {
+            display: block;
+            color: #d4af37;
+            font-size: 2rem;
+            font-weight: bold;
         }
 
         footer {
             text-align: center;
-            font-size: 0.8rem;
+            background: #0a080d;
             color: #6a5a80;
-            margin-top: 10px;
+            padding: 30px 20px;
+            margin-top: 50px;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 2.2rem;
+            }
+
+            nav a {
+                display: inline-block;
+                margin: 5px 8px;
+                font-size: 0.9rem;
+            }
+
+            section {
+                padding: 25px 20px;
+            }
         }
     </style>
 </head>
+
 <body>
 
-    <div class="game-container">
-        <header>
-            <h1>A ROCHA CHUEIRI</h1>
-            <p class="subtitle">Escola Mágica Ancestral das Montanhas Nebulosas</p>
-        </header>
+    <!-- CABEÇALHO -->
+    <header>
+        <h1>A ROCHA CHUEIRI</h1>
 
-        <div class="stats-bar" id="stats-bar" style="display: none;">
-            <div class="stat-item">Aluno: <span class="stat-value" id="stat-name">-</span></div>
-            <div class="stat-item">Raça: <span class="stat-value" id="stat-race">-</span></div>
-            <div class="stat-item">Companheiro: <span class="stat-value" id="stat-pet">-</span></div>
-            <div class="stat-item">Pontos de Equipe: <span class="stat-value" id="stat-points">0</span></div>
-        </div>
+        <p>
+            Escola Mágica Ancestral das Montanhas Nebulosas
+        </p>
+    </header>
 
-        <div class="story-box" id="story-text">
-            O nevoeiro das Montanhas Nebulosas se dissipa, revelando a imponente fortaleza de pedra da Rocha Chueiri. Os grandes portões estão abertos para o início da Competição Anual. O Arquimago aguarda no Grande Salão.
-            <br><br>
-            Antes de se juntar à sua equipe, você precisa se registrar no livro de convocação.
-        </div>
 
-        <div class="choices-container" id="choices-box">
-            <!-- As opções serão inseridas via JavaScript -->
-        </div>
+    <!-- MENU -->
+    <nav>
+        <a href="#sobre">Sobre</a>
+        <a href="#personagens">Personagens</a>
+        <a href="#competicao">Competição</a>
+        <a href="#pontuacao">Pontuação</a>
+        <a href="#conclusao">Conclusão</a>
+    </nav>
 
-        <footer>
-            Rocha Chueiri RPG &bull; Pressione as opções para progredir no torneio
-        </footer>
-    </div>
 
-    <script>
-        // Estado do Jogador
-        const player = {
-            name: "Estudante",
-            race: "",
-            pet: "",
-            points: 0
-        };
+    <main>
 
-        // Elementos do DOM
-        const storyTextEl = document.getElementById('story-text');
-        const choicesBoxEl = document.getElementById('choices-box');
-        const statsBarEl = document.getElementById('stats-bar');
-        const statNameEl = document.getElementById('stat-name');
-        const statRaceEl = document.getElementById('stat-race');
-        const statPetEl = document.getElementById('stat-pet');
-        const statPointsEl = document.getElementById('stat-points');
+        <!-- SOBRE -->
+        <section id="sobre">
 
-        // Atualiza a barra de atributos
-        function updateStats() {
-            statNameEl.textContent = player.name;
-            statRaceEl.textContent = player.race || "-";
-            statPetEl.textContent = player.pet || "-";
-            statPointsEl.textContent = player.points;
-        }
+            <h2>Sobre o Projeto</h2>
 
-        // Exibe uma cena do jogo
-        function showScene(scene) {
-            storyTextEl.innerHTML = scene.text;
-            choicesBoxEl.innerHTML = '';
+            <p>
+                A Rocha Chueiri é uma proposta de aventura fantástica
+                ambientada em uma escola mágica ancestral localizada
+                nas Montanhas Nebulosas.
+            </p>
 
-            scene.options.forEach(option => {
-                const button = document.createElement('button');
-                button.className = 'btn-choice';
-                button.textContent = option.text;
-                button.onclick = () => option.select();
-                choicesBoxEl.appendChild(button);
-            });
+            <p>
+                A história acompanha estudantes que participam da
+                Competição Anual da escola. Durante a competição,
+                os participantes enfrentam diferentes desafios e
+                precisam trabalhar em equipe junto de seus
+                companheiros mágicos.
+            </p>
 
-            updateStats();
-        }
+            <div class="highlight">
+                <strong>Objetivo:</strong>
+                apresentar uma aventura baseada em fantasia,
+                escolhas, cooperação e desafios mágicos.
+            </div>
 
-        // --- CENAS DO JOGO ---
+        </section>
 
-        const scenes = {
-            start: {
-                text: "Bem-vindo à Rocha Chueiri. Qual é a sua linhagem ancestral?",
-                options: [
-                    {
-                        text: "Elfo Místico (Afinidade com magias antigas e fênixes)",
-                        select: () => {
-                            player.race = "Elfo";
-                            choosePetScene();
-                        }
-                    },
-                    {
-                        text: "Anão das Runas (Resistente e mestre em encantamentos)",
-                        select: () => {
-                            player.race = "Anão";
-                            choosePetScene();
-                        }
-                    },
-                    {
-                        text: "Humano Elemental (Versátil e adaptável a qualquer desafio)",
-                        select: () => {
-                            player.race = "Humano";
-                            choosePetScene();
-                        }
-                    }
-                ]
-            }
-        };
 
-        function choosePetScene() {
-            statsBarEl.style.display = 'flex';
-            showScene({
-                text: `Sendo um ${player.race}, você se dirige aos pátios de adestramento da Rocha Chueiri para invocar seu companheiro mágico para a Competição Anual. Quem responderá ao seu chamado?`,
-                options: [
-                    {
-                        text: "Um Grifo Imponente (Agilidade e visão aguçada)",
-                        select: () => {
-                            player.pet = "Grifo";
-                            firstTaskScene();
-                        }
-                    },
-                    {
-                        text: "Uma Fênix Renascida (Chamas curativas e sabedoria)",
-                        select: () => {
-                            player.pet = "Fênix";
-                            firstTaskScene();
-                        }
-                    },
-                    {
-                        text: "Um Dragão Esmeralda (Força bruta e baforada de fogo)",
-                        select: () => {
-                            player.pet = "Dragão";
-                            firstTaskScene();
-                        }
-                    }
-                ]
-            });
-        }
+        <!-- PERSONAGENS -->
+        <section id="personagens">
 
-        function firstTaskScene() {
-            showScene({
-                text: `O Arquimago assume o pódio no salão central e ecoa sua voz: <i>"Que comece a Competição Anual! A primeira prova testará a união entre aluno e criatura na Ravina dos Ecos."</i><br><br>
-                Sua equipe avança pela ravina e encontra uma névoa sombria criada por uma equipe rival para atrasá-los. Um segredo parece estar oculto ali. O que você faz?`,
-                options: [
-                    {
-                        text: `Usar a habilidade especial do seu ${player.pet} para dissipar a névoa.`,
-                        select: () => {
-                            player.points += 20;
-                            secretDiscoveryScene(true);
-                        }
-                    },
-                    {
-                        text: "Lançar um feitiço de rastreamento com sua equipe para contornar o perigo.",
-                        select: () => {
-                            player.points += 10;
-                            secretDiscoveryScene(false);
-                        }
-                    },
-                    {
-                        text: "Confrontar a equipe rival diretamente antes de continuar.",
-                        select: () => {
-                            player.points += 5;
-                            secretDiscoveryScene(false);
-                        }
-                    }
-                ]
-            });
-        }
+            <h2>Personagens e Criaturas</h2>
 
-        function secretDiscoveryScene(foundSecret) {
-            let extraText = foundSecret 
-                ? `Graças ao seu <b>${player.pet}</b>, você não só limpa o caminho como também revela um talismã ancestral escondido nas rochas, deixado pelos fundadores da escola!`
-                : "Vocês conseguem avançar pela névoa, mas a rivalidade entre as turmas fica cada vez mais acirrada.";
+            <div class="cards">
 
-            showScene({
-                text: `${extraText}<br><br>Chegou a hora do desafio final na Arena do Voo. O Troféu da Rocha Chueiri está visível no topo da torre central, mas o time rival conjura uma barreira mágica final.`,
-                options: [
-                    {
-                        text: "Combinar sua magia elemental com o poder do seu companheiro para quebrar a barreira.",
-                        select: () => {
-                            player.points += 30;
-                            finalResultScene();
-                        }
-                    },
-                    {
-                        text: "Confiar totalmente no trabalho em equipe dos seus colegas para criar um escudo e capturar o troféu.",
-                        select: () => {
-                            player.points += 25;
-                            finalResultScene();
-                        }
-                    }
-                ]
-            });
-        }
+                <div class="card">
+                    <h3>Elfo Místico</h3>
 
-        function finalResultScene() {
-            let victoryText = "";
-            if (player.points >= 40) {
-                victoryText = `Com <b>${player.points} pontos</b>, sua equipe alcançou a vitória máxima! O Arquimago entrega o Troféu da Rocha Chueiri à sua família, e seu nome será gravado na história da escola ancestral.`;
-            } else {
-                victoryText = `Com <b>${player.points} pontos</b>, sua equipe lutou bravamente e conquistou o segundo lugar. A rivalidade continua, mas seus laços com seu ${player.pet} tornaram-se inquebráveis.`;
-            }
+                    <p>
+                        Possui afinidade com magias antigas
+                        e conhecimentos relacionados às forças
+                        mágicas da natureza.
+                    </p>
+                </div>
 
-            showScene({
-                text: `<b>A Competição Anual Chegou ao Fim!</b><br><br>${victoryText}`,
-                options: [
-                    {
-                        text: "Jogar Novamente",
-                        select: () => {
-                            player.points = 0;
-                            player.race = "";
-                            player.pet = "";
-                            statsBarEl.style.display = 'none';
-                            showScene(scenes.start);
-                        }
-                    }
-                ]
-            });
-        }
 
-        // Iniciar o jogo
-        showScene(scenes.start);
-    </script>
+                <div class="card">
+                    <h3>Anão das Runas</h3>
+
+                    <p>
+                        É conhecido por sua resistência e
+                        domínio dos encantamentos e das
+                        antigas runas mágicas.
+                    </p>
+                </div>
+
+
+                <div class="card">
+                    <h3>Humano Elemental</h3>
+
+                    <p>
+                        Possui grande versatilidade e capacidade
+                        de adaptação diante dos diferentes
+                        desafios encontrados durante a competição.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <h3>Companheiros Mágicos</h3>
+
+            <div class="cards">
+
+                <div class="card">
+                    <h3>Grifo</h3>
+
+                    <p>
+                        Criatura conhecida por sua agilidade,
+                        força e visão aguçada.
+                    </p>
+                </div>
+
+
+                <div class="card">
+                    <h3>Fênix</h3>
+
+                    <p>
+                        Criatura associada ao renascimento,
+                        às chamas mágicas e à sabedoria.
+                    </p>
+                </div>
+
+
+                <div class="card">
+                    <h3>Dragão Esmeralda</h3>
+
+                    <p>
+                        Uma criatura poderosa, associada à
+                        força e às habilidades relacionadas ao fogo.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- COMPETIÇÃO -->
+        <section id="competicao">
+
+            <h2>A Competição Anual</h2>
+
+            <p>
+                A Competição Anual é o principal evento da
+                história. Os estudantes precisam superar provas
+                enquanto trabalham junto de suas equipes e
+                companheiros mágicos.
+            </p>
+
+
+            <div class="timeline">
+
+                <div class="step">
+
+                    <strong>1. Entrada na escola</strong>
+
+                    <p>
+                        O estudante chega à Rocha Chueiri e
+                        conhece a escola mágica e suas tradições.
+                    </p>
+
+                </div>
+
+
+                <div class="step">
+
+                    <strong>2. Escolha da linhagem</strong>
+
+                    <p>
+                        O participante define sua linhagem
+                        ancestral, podendo ser Elfo, Anão
+                        ou Humano.
+                    </p>
+
+                </div>
+
+
+                <div class="step">
+
+                    <strong>3. Escolha do companheiro</strong>
+
+                    <p>
+                        O estudante escolhe uma criatura mágica
+                        para acompanhá-lo durante a competição.
+                    </p>
+
+                </div>
+
+
+                <div class="step">
+
+                    <strong>4. Ravina dos Ecos</strong>
+
+                    <p>
+                        A primeira grande prova acontece na
+                        Ravina dos Ecos, onde uma névoa mágica
+                        dificulta o avanço das equipes.
+                    </p>
+
+                </div>
+
+
+                <div class="step">
+
+                    <strong>5. Arena do Voo</strong>
+
+                    <p>
+                        Na etapa final, os participantes precisam
+                        superar uma barreira mágica para alcançar
+                        o Troféu da Rocha Chueiri.
+                    </p>
+
+                </div>
+
+
+                <div class="step">
+
+                    <strong>6. Resultado</strong>
+
+                    <p>
+                        Ao final das provas, os pontos conquistados
+                        determinam o resultado da equipe.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- PONTUAÇÃO -->
+        <section id="pontuacao">
+
+            <h2>Sistema de Pontuação</h2>
+
+            <p>
+                A competição possui um sistema de pontos que
+                representa o desempenho da equipe durante as provas.
+            </p>
+
+
+            <h3>Primeira Prova</h3>
+
+            <div class="points">
+
+                <div class="point-box">
+
+                    <span class="number">20</span>
+
+                    pontos
+
+                    <p>
+                        Usar a habilidade especial
+                        do companheiro.
+                    </p>
+
+                </div>
+
+
+                <div class="point-box">
+
+                    <span class="number">10</span>
+
+                    pontos
+
+                    <p>
+                        Usar um feitiço de rastreamento.
+                    </p>
+
+                </div>
+
+
+                <div class="point-box">
+
+                    <span class="number">5</span>
+
+                    pontos
+
+                    <p>
+                        Confrontar a equipe rival.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <h3>Desafio Final</h3>
+
+            <div class="points">
+
+                <div class="point-box">
+
+                    <span class="number">30</span>
+
+                    pontos
+
+                    <p>
+                        Combinar a magia do estudante
+                        com o poder do companheiro.
+                    </p>
+
+                </div>
+
+
+                <div class="point-box">
+
+                    <span class="number">25</span>
+
+                    pontos
+
+                    <p>
+                        Utilizar o trabalho em equipe
+                        para superar o desafio.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- IMPORTÂNCIA -->
+        <section>
+
+            <h2>Principais Elementos do Projeto</h2>
+
+            <div class="cards">
+
+                <div class="card">
+
+                    <h3>Fantasia</h3>
+
+                    <p>
+                        O projeto utiliza uma ambientação
+                        fantástica com magia, criaturas
+                        lendárias e uma escola ancestral.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h3>Escolhas</h3>
+
+                    <p>
+                        As decisões representam diferentes
+                        estratégias que podem ser utilizadas
+                        durante os desafios.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h3>Cooperação</h3>
+
+                    <p>
+                        O trabalho em equipe é um dos principais
+                        elementos apresentados durante a competição.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h3>Aventura</h3>
+
+                    <p>
+                        A história apresenta diferentes locais,
+                        desafios e acontecimentos que formam
+                        uma jornada fantástica.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CONCLUSÃO -->
+        <section id="conclusao">
+
+            <h2>Conclusão</h2>
+
+            <p>
+                A Rocha Chueiri apresenta uma aventura fantástica
+                centrada em uma competição entre estudantes de
+                uma escola mágica.
+            </p>
+
+            <p>
+                O projeto combina elementos de fantasia,
+                exploração, criaturas mágicas, desafios e
+                trabalho em equipe para construir uma experiência
+                temática.
+            </p>
+
+            <p>
+                A estrutura da história permite que o participante
+                conheça diferentes personagens, criaturas e locais
+                enquanto acompanha o desenvolvimento da Competição
+                Anual.
+            </p>
+
+            <div class="highlight">
+
+                <strong>Resumo:</strong>
+
+                A Rocha Chueiri é uma escola mágica ancestral
+                onde estudantes e criaturas mágicas participam
+                de uma competição repleta de desafios,
+                estratégias e aventuras.
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- RODAPÉ -->
+    <footer>
+
+        <p>
+            A Rocha Chueiri &bull; Projeto de fantasia
+        </p>
+
+        <p>
+            Escola Mágica Ancestral das Montanhas Nebulosas
+        </p>
+
+    </footer>
+
 </body>
-</html>  
+</html>
